@@ -6,7 +6,9 @@ var app = express();
 
 app.post(config.githubDeployment.path, function(req, res) {
   console.log("handling new github request: ", req);
-  githubHandler(req, res);
+  githubHandler(req, res, function(err) {
+    console.log("Error handling github request: ", err);
+  });
 });
 
 app.get('/', function(req, res) {
