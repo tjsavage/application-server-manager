@@ -11,5 +11,5 @@ var server = app.listen(config.frontend.port, function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log("listening at http://%s:%s", host, port);
+  console.log("application-server-manager frontend listening at http://%s:%s", host, port);
 })

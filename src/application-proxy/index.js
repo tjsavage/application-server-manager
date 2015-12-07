@@ -3,7 +3,7 @@ var httpProxy = require('http-proxy');
 var config = require('../../config.json');
 
 var router = {};
-router[config.frontend.domain] = '127.0.0.1:' + config.frontend.port;
+router[config.frontend.domain] = 'http://127.0.0.1:' + config.frontend.port;
 
 for(var i = 0; i < config.applications.length; i++) {
   var application = config.applications[i];
@@ -22,8 +22,8 @@ console.log(router);
 var proxy = httpProxy.createProxy();
 
 require('http').createServer(function(req, res) {
-  console.log(req.headers.host);
-  console.log(router[req.headers.host]);
+  console.log('application-proxy: host: ', req.headers.host);
+  console.log('application-proxy: route: ', router[req.headers.host]);
   proxy.web(req, res, {
     target: router[req.headers.host]
   });
