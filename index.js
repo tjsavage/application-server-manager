@@ -6,6 +6,7 @@ var exec = require('child_process').exec;
 var config = require('./config.json');
 
 require('./src/application-proxy');
+require('./src/github-deployment');
 require('./src/frontend');
 
 config.applications.forEach(function(app) {

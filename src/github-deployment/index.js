@@ -8,17 +8,22 @@ var handler = createHandler({
   secret: config.githubDeployment.secret
 });
 
-http.createServer(function(req, res) {
+var server = http.createServer(function(req, res) {
   handler(req, res, function(err) {
     res.statusCode = 404,
     res.end('no such location');
   })
-}).listen(7777);
+}).listen(config.githubDeployment.port, function() {
+  var host = server.address().address;
+  var port = server.address().port;
+
+  console.log("application-server-manager github-deployment listening at http://%s:%s", host, port);
+});
 
 handler.on('error', function(err) {
   console.error('Error: ', err.message);
 });
 
 handler.on('push', function(event) {
-  console.log(event.payload.repository.name);
+  console.log(event.payload);
 });
