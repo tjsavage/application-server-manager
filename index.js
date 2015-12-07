@@ -6,7 +6,9 @@ var exec = require('child_process').exec;
 var config = require('./config.json');
 
 require('./src/application-proxy');
-require('./src/frontend');
+var frontend = require('./src/frontend');
+
+var runningApplications = {};
 
 config.applications.forEach(function(app) {
   var options = {
@@ -34,4 +36,10 @@ config.applications.forEach(function(app) {
   child.on('close', function(code) {
     console.log('exiting with code: ' + code);
   });
+
+  runningApplications[app.name] = child;
+});
+
+frontend.githubHandler.on('pre-update-app', function(event) {
+  console.log("about to update app:", event.name);
 });

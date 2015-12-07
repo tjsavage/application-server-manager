@@ -34,3 +34,8 @@ process.on('uncaughtException', function() {
 process.on('SIGTERM', function() {
   server.close();
 });
+
+module.exports = {
+  app: app,
+  githubHandler: githubHandler
+}
