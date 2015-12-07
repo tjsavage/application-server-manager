@@ -3,7 +3,6 @@ var httpProxy = require('http-proxy');
 var config = require('../../config.json');
 
 var router = {};
-router[config.githubDeployment.domain] = 'http://127.0.0.1:' + config.githubDeployment.port;
 router[config.frontend.domain] = 'http://127.0.0.1:' + config.frontend.port;
 
 for(var i = 0; i < config.applications.length; i++) {
