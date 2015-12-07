@@ -5,8 +5,8 @@ var config = require('../../config.json');
 var router = {};
 router[config.frontend.domain] = 'http://127.0.0.1:' + config.frontend.port;
 
-for(var i = 0; i < config.applications.length; i++) {
-  var application = config.applications[i];
+for(var key in config.applications) {
+  var application = config.applications[key];
 
   router[application.domain] = 'http://127.0.0.1:' + application.port;
 

@@ -10,7 +10,15 @@ var frontend = require('./src/frontend');
 
 var runningApplications = {};
 
-config.applications.forEach(function(app) {
+Object.keys(config.applications).forEach(function(key) {
+  var app = config.applications[key];
+
+  var child = createNewChildApplicationProcess(app);
+
+  runningApplications[key] = child;
+});
+
+function createNewChildApplicationProcess(app) {
   var options = {
     cwd: app.path,
     env: process.env
@@ -36,10 +44,27 @@ config.applications.forEach(function(app) {
   child.on('close', function(code) {
     console.log('exiting with code: ' + code);
   });
+  return child;
+}
 
-  runningApplications[app.name] = child;
-});
+frontend.githubHandler.on('update-app', function(event) {
+  var appName = event.name;
 
-frontend.githubHandler.on('pre-update-app', function(event) {
-  console.log("about to update app:", event.name);
+  console.log("about to update app:", appName);
+  exec("git pull && git checkout tags/" + event.tag, {
+    cwd: app.path
+  }, function (error, stdout, stderr) {
+    console.log('stdout: ' + stdout);
+    console.log('stderr: ' + stderr);
+    if (error !== null) {
+      console.log('exec error: ' + error);
+    }
+
+    if (!error) {
+      var child = runningApplications[appName];
+      child.kill();
+      runningApplications[appName] = createNewChildApplicationProcess(config.applications[appName]);
+    }
+  });
+
 });

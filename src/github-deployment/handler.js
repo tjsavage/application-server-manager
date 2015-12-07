@@ -12,16 +12,16 @@ handler.on('error', function(err) {
   console.error('Error: ', err.message);
 });
 
-handler.on('push', function(event) {
-  console.log("New push event: ", event.payload);
+handler.on('release', function(event) {
+  console.log("New release event: ", event.payload);
 
   for(var i = 0; i < config.applications.length; i++) {
     var app = config.applications[i];
 
-    if (event.payload.repository.full_name == app.repository && event.payload.ref == app.ref) {
-      console.log("Push event matches branch, updated application");
-      handler.emit('pre-update-app', {
-        name: app.name
+    if (event.payload.repository.full_name == app.repository && event.payload.action == "published") {
+      handler.emit('update-app', {
+        name: app.name,
+        tag: event.payload.release.tag_name
       });
     }
   }

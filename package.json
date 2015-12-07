@@ -13,6 +13,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "del": "^2.2.0",
     "express": "^4.13.3",
     "github-webhook-handler": "^0.5.0",
     "http-proxy": "^1.12.0"
