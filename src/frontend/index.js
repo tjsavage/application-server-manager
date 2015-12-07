@@ -26,8 +26,8 @@ process.on('exit', function() {
   server.close();
 })
 
-process.on('uncaughtException', function() {
-  console.log("uncaught exception");
+process.on('uncaughtException', function(e) {
+  console.log("uncaught exception", e);
   server.close();
 });
 
