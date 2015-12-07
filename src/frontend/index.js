@@ -1,7 +1,12 @@
 var express = require('express');
 var config = require('../../config.json');
+var githubHandler = require('../github-deployment/handler');
 
 var app = express();
+
+app.post(config.githubDeployment.path, function(req, res) {
+  githubHandler(req, res);
+});
 
 app.get('/', function(req, res) {
   res.send('Hello there!');
