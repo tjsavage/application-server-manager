@@ -5,6 +5,7 @@ var githubHandler = require('../github-deployment/handler');
 var app = express();
 
 app.post(config.githubDeployment.path, function(req, res) {
+  console.log("handling new github request: ", req);
   githubHandler(req, res);
 });
 
