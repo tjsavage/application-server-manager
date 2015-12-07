@@ -1,0 +1,9 @@
+{
+  "githubDeployment": {
+    "path": "/webhook",
+    "secret": "ADJSLFJDSLFJ"
+  },
+  "applications": [
+
+  ]
+}

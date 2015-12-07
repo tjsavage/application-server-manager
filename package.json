@@ -1,0 +1,20 @@
+{
+  "name": "application-server-manager",
+  "version": "0.0.1",
+  "description": "A small application to manage my application server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/tjsavage/application-server-manager"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.3",
+    "github-webhook-handler": "^0.5.0",
+    "http-proxy": "^1.12.0"
+  }
+}
